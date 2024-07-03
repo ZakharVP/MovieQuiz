@@ -61,8 +61,8 @@
 			children = (
 				31264D1F2C35B4740097B660 /* YS Display-Bold.ttf */,
 				31264D1E2C35B4740097B660 /* YS Display-Medium.ttf */,
-				AD1ABABC2831907F00B3E448 /* LaunchScreen.storyboard */,
 				AD1ABABA2831907F00B3E448 /* Assets.xcassets */,
+				AD1ABABC2831907F00B3E448 /* LaunchScreen.storyboard */,
 				AD1ABABF2831907F00B3E448 /* Info.plist */,
 			);
 			path = Resources;
