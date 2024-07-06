@@ -59,11 +59,13 @@ final class MovieQuizViewController: UIViewController {
     // MARK: - Overrides Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        questionTitleLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        questionTitleLabel.font = UIFont(name: "YSDisplay-Bold", size: 23.0)
         counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
         textLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
         yesButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
         noButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        
+        imageView.layer.cornerRadius = 20
         
         let currentQuestion = questions[currentQuestionIndex]
         show(quiz: convert(model: currentQuestion))
@@ -75,7 +77,7 @@ final class MovieQuizViewController: UIViewController {
         let givenAnswer = true
         
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
-    }    
+    }
     @IBAction private func noButtonCliked(_ sender: UIButton) {
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = false
