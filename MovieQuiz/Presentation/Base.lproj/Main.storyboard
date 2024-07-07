@@ -107,10 +107,10 @@
                     <connections>
                         <outlet property="counterLabel" destination="xwP-C7-Zdf" id="f1L-jz-RvG"/>
                         <outlet property="imageView" destination="ZLY-ns-PPj" id="CeW-uv-XIe"/>
-                        <outlet property="noButton" destination="g6V-Hy-af4" id="7FC-qf-bDl"/>
+                        <outlet property="noButton" destination="w9a-Vu-4Ca" id="Hej-gQ-1r7"/>
                         <outlet property="questionTitleLabel" destination="Nfj-4L-BqF" id="rIt-L3-1rK"/>
                         <outlet property="textLabel" destination="pf5-1Z-Voa" id="cRX-pi-Fkh"/>
-                        <outlet property="yesButton" destination="w9a-Vu-4Ca" id="F8p-SI-ECW"/>
+                        <outlet property="yesButton" destination="g6V-Hy-af4" id="NsK-Ts-IN9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

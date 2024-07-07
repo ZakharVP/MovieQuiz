@@ -9,7 +9,6 @@ final class MovieQuizViewController: UIViewController {
     
     @IBOutlet private var noButton: UIButton!
     @IBOutlet private var yesButton: UIButton!
-    
     // MARK: - Private Properties
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
@@ -73,12 +72,16 @@ final class MovieQuizViewController: UIViewController {
     
     // MARK: - IB Actions
     @IBAction private func yesButtonCliked(_ sender: UIButton) {
+        yesButton.isEnabled = false
+        
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = true
-        
+        //yesButton.isEnabled = false
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        
     }
     @IBAction private func noButtonCliked(_ sender: UIButton) {
+        noButton.isEnabled = false
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = false
         
@@ -97,7 +100,6 @@ final class MovieQuizViewController: UIViewController {
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
-        
     }
     private func show(quiz result: QuizResultsViewModel){
         let alert = UIAlertController(
@@ -122,17 +124,21 @@ final class MovieQuizViewController: UIViewController {
         if isCorrect {
             correctAnswers += 1
         }
-        
+                
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
-        imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor    
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0){ [weak self] in
+        imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
+              
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
+                 
             self.showNextQuestionOrResults()
         }
+        
     }
     private func showNextQuestionOrResults() {
+        imageView.layer.borderWidth = 0
+        
         if currentQuestionIndex == questions.count - 1 {
             //Состояние результат квиза
             let text = "Ваш результат: \(correctAnswers)/10"
@@ -151,6 +157,8 @@ final class MovieQuizViewController: UIViewController {
             
             show(quiz: viewModel)
         }
+        yesButton.isEnabled = true
+        noButton.isEnabled = true
     }
 }
 
