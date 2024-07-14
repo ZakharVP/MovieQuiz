@@ -4,11 +4,14 @@
 //
 //  Created by Захар Панченко on 07.07.2024.
 //
-
 import Foundation
 
-class QuestionFactory : QuestionFactoryProtocol{
-    private let questionFactory: QuestionFactoryProtocol = QuestionFactory()
+protocol QuestionFactoryDelegate: AnyObject {
+    func didReciveQuestion(_ question: QuizQuestion)
+}
+
+final class QuestionFactory {
+    
     private let questions: [QuizQuestion] = [
         QuizQuestion(
             image: "The Godfather",
@@ -52,14 +55,23 @@ class QuestionFactory : QuestionFactoryProtocol{
             correctAnswer: false)
     ]
     
-    func requestNextQuestion() -> QuizQuestion? {
-        guard let index = (0..<questions.count).randomElement() else {
-            return nil
+    private weak var delegate: QuestionFactoryDelegate?
+    
+    init(delegate: QuestionFactoryDelegate?) {
+        self.delegate = delegate
+    }
+    
+    func requestNextQuestion() {
+        guard let question = questions.randomElement() else {
+            assertionFailure("question is empty")
+            return
         }
         
-        return questions[safe: index]
+        delegate?.didReciveQuestion(question)
     }
     
 }
+
+
 
 
