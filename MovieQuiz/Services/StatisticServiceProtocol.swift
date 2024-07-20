@@ -7,23 +7,11 @@
 
 import Foundation
 
-//protocol StatisticServiceProtocol {
-//    var gamesCount: Int { get }
-//    var bestGame: GameResult { get }
-//    var totalAccuracy: Double { get }
+protocol StatisticServiceProtocol {
+    var totalAccuracy: Double { get }
+    var gamesCount: Int { get }
+    var bestGame: BestGame? { get }
     
-//}
+    func store(correct: Int, total: Int)
+}
 
-//struct GameResult {
-//    let correct: Int
-//    let total: Int
-//    let date: Date
-    
-//    func isBetterThan(_ another: GameResult) -> Bool {
-//        correct > another.correct
-//    }
-//}
-
-//func store(correct count: Int, total amount: Int) {
-    
-//}

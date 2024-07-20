@@ -7,6 +7,8 @@
 
 import Foundation
 
-protocol QuestionFactoryProtocol {
-    func requestNextQuestion() -> QuizQuestion?
+protocol QuestionFactoryProtocol: AnyObject {
+    func requestNextQuestion()
+    func loadData()
 }
+
