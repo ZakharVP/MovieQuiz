@@ -122,10 +122,6 @@ final class MovieQuizViewController: UIViewController {
     private func show(quiz result: QuizResultsViewModel){
         
         statisticService?.store(correct: correctAnswers, total: questionsAmount)
-        guard let bestGame = statisticService?.bestGame else {
-            assertionFailure("error message")
-            return
-        }
         
         let alertModel = AlertModel(
             title: "Игра окончена!",
