@@ -10,12 +10,22 @@ import UIKit
 
 final class MovieQuizPresenter {
     
-    var currentQuestion: QuizQuestion?
     weak var viewController: MovieQuizViewController?
-        
+    var currentQuestion: QuizQuestion?
+    var correctAnswers: Int = 0
+    var questionFactory: QuestionFactoryProtocol?
+    
     let questionsAmount: Int = 10
     private var currentQuestionIndex = 0
     
+    func yesButtonClicked() {
+        didAnswer(isYes: true)
+    }
+    
+    func noButtonClicked() {
+        didAnswer(isYes: false)
+    }
+        
     func isLastQuestion() -> Bool{
         currentQuestionIndex == questionsAmount - 1
     }
@@ -35,19 +45,47 @@ final class MovieQuizPresenter {
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
         
     }
-   
-   func yesButtonCliked() {
-        guard let currentQuestion = currentQuestion else {
+    
+    func didReceiveNextQuestion(question: QuizQuestion?) {
+        guard let question = question else {
             return
         }
-        let givenAnswer = true
-       viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        
+        currentQuestion = question
+        let viewModel = convert(model: question)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.viewController?.show(quiz: viewModel)
+        }
     }
-    func noButtonCliked() {
+    
+    func showNextQuestionOrResults() {
+                        
+        if self.isLastQuestion() {
+            //Состояние результат квиза
+            let text =  "Вы ответили на \(correctAnswers) из 10, попробуйте еще раз!"
+            
+            let viewModel = QuizResultsViewModel(
+                title: "Этот раунд окончен!",
+                text: text,
+                buttonText: "Сыграть еще раз")
+            
+            viewController?.show(quiz: viewModel)
+        }
+        else {
+            self.switchToNextQuestion()
+            //вопрос показан
+            questionFactory?.requestNextQuestion()
+        }
+    }
+       
+    private func didAnswer(isYes: Bool) {
         guard let currentQuestion = currentQuestion else {
             return
         }
-        let givenAnswer = false
+        
+        let givenAnswer = isYes
+        
         viewController?.showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
 }
