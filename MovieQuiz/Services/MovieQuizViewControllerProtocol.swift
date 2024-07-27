@@ -7,14 +7,13 @@
 
 import Foundation
 
-protocol MovieQuizViewControllerProtol: AnyObject {
-    func show(quiz step: QuizStepViewModel)
-    func show(quiz result: QuizResultsViewModel)
-    
-    func highLightImageBorder(isCorrectAnswer: Bool)
-    
+protocol MovieQuizViewControllerProtocol: AnyObject {
     func showLoadingIndicator()
     func hideLoadingIndicator()
     
     func showNetworkError(message: String)
+    func highLightImageBorder(isCorrectAnswer: Bool)
+    func show(quiz step: QuizStepViewModel)
+    func show(quiz result: QuizResultsViewModel)
+
 }

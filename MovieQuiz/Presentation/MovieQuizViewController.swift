@@ -1,7 +1,7 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtol{
-                
+final class MovieQuizViewController: UIViewController, MovieQuizViewControllerProtocol{
+    
     // MARK: - IB Outlets
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
@@ -12,8 +12,6 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Private Properties
-    //private var alertPresenter: AlertPresenter?
-    //private var statisticService: StatisticService?
     private var presenter: MovieQuizPresenter!
             
     
@@ -30,11 +28,7 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
         imageView.layer.cornerRadius = 20
         
         presenter = MovieQuizPresenter(viewController: self)
-        
-        //alertPresenter = AlertPresenter(viewController: self)
-        //statisticService = StatisticService()
-        
-        showLoadingIndicator()
+
     }
     
        
@@ -60,6 +54,8 @@ final class MovieQuizViewController: UIViewController, MovieQuizViewControllerPr
             title: result.title,
             message: message,
             preferredStyle: .alert)
+        
+        alert.view.accessibilityIdentifier = "id"
                
         let action = UIAlertAction(title: result.buttonText, style: .default) { [weak self] _ in
             guard let self = self else {return}

@@ -4,22 +4,20 @@
 //
 //  Created by Захар Панченко on 23.07.2024.
 //
-
-import Foundation
 import UIKit
 
 final class MovieQuizPresenter: QuestionFactoryDelegate {
-                  
+
     private var currentQuestion: QuizQuestion?
     private var correctAnswers: Int = 0
     private let questionsAmount: Int = 10
     
     private let statisticService: StatisticServiceProtocol!
-    private weak var viewController: MovieQuizViewController?
+    private weak var viewController: MovieQuizViewControllerProtocol?
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestionIndex: Int = 0
     
-    init(viewController: MovieQuizViewController) {
+    init(viewController: MovieQuizViewControllerProtocol) {
         self.viewController = viewController
         
         statisticService = StatisticService()
@@ -115,7 +113,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
             "Вы ответили на \(correctAnswers) из 10, попробуйте еще раз!"
             
             let viewModel = QuizResultsViewModel(
-                title: "Этот райнд окончен",
+                title: "Этот раунд окончен!",
                 text: text,
                 buttonText: "Сыграть еще раз")
             viewController?.show(quiz: viewModel)
@@ -142,37 +140,4 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         
         return resultMessage
     }
-    /*
-    func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else {
-            return
-        }
-        
-        currentQuestion = question
-        let viewModel = convert(model: question)
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.viewController?.show(quiz: viewModel)
-        }
-    }
-    
-    func showNextQuestionOrResults() {
-                        
-        if self.isLastQuestion() {
-            //Состояние результат квиза
-            let text =  "Вы ответили на \(correctAnswers) из 10, попробуйте еще раз!"
-            
-            let viewModel = QuizResultsViewModel(
-                title: "Этот раунд окончен!",
-                text: text,
-                buttonText: "Сыграть еще раз")
-            
-            viewController?.show(quiz: viewModel)
-        }
-        else {
-            self.switchToNextQuestion()
-            //вопрос показан
-            questionFactory?.requestNextQuestion()
-        }
-    }*/
 }

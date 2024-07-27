@@ -7,25 +7,21 @@
 
 import UIKit
 
-protocol AlertPresenterProtocol {
-    func show(alertModel: AlertModel)
-}
-
-final class AlertPresenter {
+final class AlertPresenter: AlertPresenterProtocol {
     weak var viewController: UIViewController?
     
     init(viewController: UIViewController? = nil) {
         self.viewController = viewController
     }
     
-}
-
-extension AlertPresenter: AlertPresenterProtocol{
     func show(alertModel: AlertModel) {
+        
         let alert = UIAlertController(
             title: alertModel.title,
             message: alertModel.message,
             preferredStyle: .alert)
+        
+        alert.view.accessibilityIdentifier = "id"
         
         let action = UIAlertAction(title: alertModel.buttonText, style: .default) { _ in
            alertModel.buttonAction()
@@ -35,5 +31,4 @@ extension AlertPresenter: AlertPresenterProtocol{
         viewController?.present(alert, animated: true)
         
     }
-    
 }

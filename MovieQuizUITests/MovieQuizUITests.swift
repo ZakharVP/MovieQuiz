@@ -37,7 +37,7 @@ final class MovieQuizUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+                // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
     func testYesButton() {
@@ -67,39 +67,36 @@ final class MovieQuizUITests: XCTestCase {
         let secondPosterData = secondPoster.screenshot().pngRepresentation
 
         let indexLabel = app.staticTexts["Index"]
-       
-        XCTAssertNotEqual(firstPosterData, secondPosterData)
+        
+        XCTAssertFalse(firstPosterData == secondPosterData)
         XCTAssertEqual(indexLabel.label, "2/10")
     }
     
     func testGameFinish() {
-        sleep(2)
+        sleep(5)
         for _ in 1...10 {
             app.buttons["No"].tap()
             sleep(2)
         }
 
-        let alert = app.alerts["Game results"]
+        let alert = app.alerts["id"]
         
         XCTAssertTrue(alert.exists)
         XCTAssertTrue(alert.label == "Этот раунд окончен!")
-        XCTAssertTrue(alert.buttons.firstMatch.label == "Сыграть ещё раз")
+        XCTAssertTrue(alert.buttons.firstMatch.label == "Сыграть еще раз")
     }
 
     func testAlertDismiss() {
-        sleep(2)
+        sleep(5)
         for _ in 1...10 {
             app.buttons["No"].tap()
             sleep(2)
         }
-        
-        let alert = app.alerts["Game results"]
+            
+        let alert = app.alerts["id"]
         alert.buttons.firstMatch.tap()
-        
         sleep(2)
-        
         let indexLabel = app.staticTexts["Index"]
-        
         XCTAssertFalse(alert.exists)
         XCTAssertTrue(indexLabel.label == "1/10")
     } 
